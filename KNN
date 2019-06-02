@@ -1,0 +1,124 @@
+nearest neighbor algorithm
+计算距离，选择距离最近的邻居并分类
+
+机器学习步骤：
+
+  read_dataset()
+  feature_extraction()
+  train()
+  test()
+  
+train_orig_dataset, test_orig_dataset = read_dataset()
+train_dataset = feature_extraction(train_ori_dataset)
+predictor = train(train_dataset)
+
+test_dataset=feature_extraction(test_orig_dataset)
+
+feature:
+  第一步，现实人看，选取一些feature
+  
+KNN 训练的过程就是记忆过程
+
+用向量表示feature
+
+(0.31, 0, 0)
+
+几种距离
+
+欧几里得距离
+  sqrt(a^2+b^2)
+余弦相似距离
+  cos(x,y) = dot(x,y)/abs(x)*abs(y)
+曼哈顿距离
+  |x1-y1|+|x2-y2|
+  
+ 如果有一个feature，数值特别大，该怎么办？
+  normalization
+  x-min/(max-min)
+ 这样就不会因为一个feature过大，一个feature过下而对结果产生影响
+ 
+ 一个点有误差？怎么办？
+ 找最近多个点，K个点谁是真正要找的分类
+ k是实验要做的，k一般在工作中 1-20 已经足够 （一般50-60已经很大）
+ 
+ 如果K取得很大，有什么坏处？
+ 耗时，没有意义，本身很大，就相当去取所有的？overfitting issue
+ 
+ 
+ 识别图像数字
+ 背景颜色对识别没有影响，先对图像就行处理
+ 1， 去掉颜色（去掉背景颜色 etc）,灰度值变成0 
+ 2， 0-1化处理，有颜色的地方变成 1， 没有颜色的地方是 0
+ 3. 将 28*28 -->1*784 的vector -->特征向量 （图片的feature就很多了，）
+ 缺点：
+ 1 feature too many
+ 2. 特别稀疏， 很多地方都是 0
+ 3， 需要特别多的数据集才能使得模型预测准确
+ 
+ KNN不需要训练，只需要读入内存
+ 
+ 
+ train = pd.read_csv("input/train.csv")
+ 
+ print(train.shape)
+ --->先看有多少行，多少列
+ print(train.head)
+ train.values()--->得到一个矩阵（二维）
+ 
+ X_train[row].reshape((28,28))
+ plt.imshow( X_train[row].reshape((28,28)))
+ plt.show()
+ 
+ from sklearn.model_selection import train_test_split
+ 2-8分
+ 
+ X_train_split, X_test_split, y_train_split, y_test_split = train_test_split(X_train, y_train, test_size = 0.3, random_state =0)
+ -->3,7分
+ random(seed),每次参数是一样的，出来的值也是一样的,C++真正随机是用当前时间来当种子，这样经常变，在我们这里，我们不希望变化，所以传入固定的种子
+ 
+ 
+ from sklearn.neighbors import KNeighborsClassifier
+ 
+ k_range = range(1,8)
+ knn = KNeighborsClassifier(n_neighbors = k)
+ 
+ knn.fit(X_train_split,y_train_split)
+ 
+ fit fucntion // train
+ predict.funcion // predict
+ 
+ y_pred=knn.predict(X_test_split)
+ 
+ print(y_pred)-->打印出预测结果
+ 
+ confusion matrix
+ 分类算法重要指标
+        实际为正 实际为负
+ 预测为正 TP      FP (false posivitve)
+ 预测为负 FN      TN
+
+ precison = TP/(TP+FP) = 2/3 我猜为1 对了几个？
+ recall = TP/(TP+FN) = 2/3  
+ 
+ F1-score = 2/(1/precision+1/recall) --》调和平均，重要性取决于绝对值小的一方，根本希望不要有短板
+ 
+ accurary  (TP+TN)/(TP+FP+TN+FN)
+ 
+ 一般用F1-score 和accurary 比较多
+ 
+为什么不用平均：
+ 会有极端问题，如果recall=1,可能会偏重recall,而如果我们一直预测为1，不管是什么都预测为1，此时recall =1,而这个模型并不好
+ 
+ 
+ 
+ from sklearn.metrics import accuracy_score, confusion_matrix, 
+ 
+ acc= accuracy_score(y_test_split, y_pred)
+ print(acc)
+ 
+ 
+ print (confusion_matrix(y_test,_split, y_pred)
+ 
+ 
+ 
+ 
