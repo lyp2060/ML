@@ -121,4 +121,38 @@ KNN 训练的过程就是记忆过程
  
  
  
- 
+ class Knn():
+  def __init__(self):
+    pass
+    
+  def fit(self,X, y):
+    self.X_train = X
+    self.Y_train = y
+  
+  def predict(self, X,k):
+    data = self.X_train
+    label = self.y_train
+    train_size = data.shape[0]
+    temp_X = np.tile(X, (train_size,1))
+    diffMat = data - temp_X
+    sqDiffMat = difMat**2
+    sumDifMat = sqDiffMat.sum(axis = 1)； #对每一列求和
+    distance = sumDifMat **0.5
+    sortedDistance=distance.argsort()
+    
+    classCount = {}
+    #前k个里面哪个label出现的多
+    for i in range(k):
+      vote = label[sortedDistance[i]]
+      classCount[vote] = classCount.get(vote, 0) +1 
+    return max(classCount.items())
+
+knn = Knn()
+knn.fit(X_train, y_train)
+k = 3
+
+y_pred = np.zero(X_test_split.shape[0])
+
+for i in range(X_test_split.shape[0]):
+  y_pred[i] = knn.predict(X_test_split[i], k)
+  
