@@ -1,0 +1,84 @@
+import numpy as np
+import pandas as pd
+import matplitlib.pyplit as plt
+
+data = pd.read_csv('../input/train.csv')
+
+test = pd.read_csv('../input/test.csv')
+
+data.columns
+data.head()
+data.dtypes
+data.info(); #see how many rows, if they are empty 
+data.describe()
+data[sex]=data.Sex()
+survived_m = data.Survived[data.Sex =='female'].value_counts()
+
+df = pd.DataFrame({'male': survived_m, 'female': survived_f})
+print(df)
+df.plot(kind = 'bar', stacked =True)
+plt.show()
+
+print(data.Age)
+data.Age.hist()
+plt.show()
+
+data.Age.isnull() ; # look at if it has null value
+
+plt.scatter(data.Survived, data.Age)
+plt.show()
+plt.ylabel('Age')
+plt.xlabel('Survived')
+plt.title("Age-Survived")
+plt.show()
+
+print(data.Fare)
+data.Fare.hist()
+plt.show()
+plt.scatter(data.Survived, data.Fare)
+plt.show()
+
+s_p1 = data.Survived[ data.Pclass == 1]. value_counts()
+s_p2 = data.Survived[ data.Pclass == 2]. value_counts()
+s_p3 = data.Survived[ data.Pclass == 3]. value_counts()
+
+df = pd.DataFrame({'P1':s_p1, 'P2': s_p2, 'P3': s_p3} )
+print(df)
+
+df.plot(kind = 'bar', stacked = True)
+plt.show()
+
+数据清洗
+
+如果有NA， 补充为非NA
+数字类可以去median
+
+label = data.loc[:,'Survived']; #.loc 是对数据进行copy
+data = data.loc[:, ['Pclass', 'Sex', 'Age', 'Fare', 'Embarked']]
+test = test.loc[:, ['Pclass', 'Sex', 'Age', 'Fare', 'Embarked']]
+
+#处理空数据
+
+def fill_NAN(data):
+  data_copy = data.copy(deep = True)
+  data_copy.loc[:'Age'] =data_copy.loc[:'Age'].filllna(data_copy['Age'].median()])
+  data_copy.loc[:'Fare'] =data_copy.loc[:'Fare'].filllna(data_copy['Fare'].median()])
+  data_copy.loc[:'Pclass'] =data_copy.loc[:'Pclass'].filllna(1); #其实可以随机输入一个值
+  data_copy.loc[:'Sex'] =data_copy.loc[:'Pclass'].filllna('female'); #其实可以随机输入一个值
+  data_copy.loc[:'Embarked'] =data_copy.loc[:'Embarked'].filllna('S'); #其实可以随机输入一个值
+  
+  return data_copy
+  
+data_no_nan = fill_NAN(data)
+
+#处理非数字数据， 比如sex, 用0 ，1 表示男女
+
+def transfer_sex(data):
+  data_copy = data.copy(deep=True)
+  data_copy.loc[data_copy['Sex'] == 'female', 'Sex'] = 0
+  data_copy.loc[data_copy['Sex'] == 'male', 'Sex'] = 1
+  return data_copy
+  
+  
+data_after_sex = transfer_sex(data_no_nan)
+
