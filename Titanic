@@ -82,3 +82,38 @@ def transfer_sex(data):
   
 data_after_sex = transfer_sex(data_no_nan)
 
+#split 数据
+from sklearn.model_selection import train_test_split
+train_data, test_data, train_label, train_label = train_test_split(data_after_embark,
+                                                                   label, random_state = 0, train_size = 0.8)
+                                                                   
+#训练KNN训练数据
+from sklearn.neighbors import KNeighborsClassifier
+k =5 
+knn = KNeighborsClassifier(n_neighbors = k)
+knn.fit()
+
+y_pred = knn.predict(test_data)
+
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+print(accuracy_score(test_label, y_pred))
+
+print(classification_report(test_label, y_pred))
+
+print(confusion_matrix(test_label, y_pred))
+
+
+cross validation
+把数据分成5 分，每次取其中一份来测试
+
+1,2,3,4 5
+1,2,3,5 4
+1,2,4,5 3
+1,3,4,5 2
+2,3,4,5 1
+
+from sklearn.model_selection import cross_val_score
+knn = KNeighborsClassifier(n_neighbors = k)
+cross_val_score(knn, data_after_embark, label, cv = 5, scoring = 'accuracy')
+print(score.mean)
