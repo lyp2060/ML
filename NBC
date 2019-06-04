@@ -34,3 +34,11 @@ P(B|A)=P(A/B)*P(B)/P(A)
   句子的可能性是无限的
   覆盖所有句子可能性的训练集是不存在
   
+
+把句子拆成词？
+  中文专门分词 -->动态规划实现的 viterbi algorithm 
+      分词工具： gibhub.com/fxsjy/jieba
+  
+A problem Great ---> "A" "Great" "problem"
+
+
