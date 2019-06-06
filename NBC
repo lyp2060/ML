@@ -102,4 +102,17 @@ print(np.mean(cv))
 缺点
 假设独立性，学习不了关联性
 
+Bernoulli Naive Bayers
+二项分布
+丢硬币是典型的bernoulli distribution, 意思就是一个时间要么成功要么失败
+若成功概率为P，失败概率为q=1-p
+
+Multinomina Naive Bayers
+丢撒子
+
+高斯分布
+Gaussian Naive Bayers
+都是连续性分布，正态分布
+
+
 <<机器学习实战>>
