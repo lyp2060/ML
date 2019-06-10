@@ -1,0 +1,16 @@
+kernelized support vector machines
+
+Pros:
+  Can perform well on a range of datasets
+  Versatile: different kernel functions can be specified, or custom kernels can be defnied for specific data types
+  works well for both low and high dimensional data
+Cons:
+  Efficiency
+  Needs careful normalization of input data and parameter tuning
+  does not provide direct probability estimates
+  difficuilt to interpret why a prediction was made
+  
+Cross-Validation:
+  K folds, k can be 5-10
+  can provide best and worst case
+  can understand how sensitive the model based on the traning data
