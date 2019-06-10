@@ -1,0 +1,85 @@
+# bar 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+bins = [50,100,150,200,300,400,500,600,700]
+nums = [0,0,0,0,0,0,0,0,0,0]
+
+df = pd.read_csv('chip_net.rpt',sep=',')
+df.leng.head()
+
+
+index = 0
+for line in df.leng:
+    if line<bins[0]:
+        nums[0] +=1
+    elif line<bins[1]:
+        nums[1] += 1
+    elif line<bins[2]:
+        nums[2] += 1
+    elif line<bins[3]:
+        nums[3] += 1
+    elif line<bins[4]:
+        nums[4] += 1
+    elif line<bins[5]:
+        nums[5] +=1
+    elif line<bins[6]:
+        nums[6] += 1
+    elif line<bins[7]:
+        nums[7] +=1
+    elif line<bins[8]:
+        nums[8] +=1
+        #print(df.name[index])
+    elif line<bins[9]:
+        nums[9] +=1
+    else:
+        nums[10]+=1
+    index +=1
+bins = [50,100,150,200,300,400,500,600,700,701]
+#plt.plot()
+#print(nums)
+# plt.plot(bins,nums,label='chip net length distribution')
+# plt.legend(['chip net length distribution'])
+# plt.xlabel('net length')
+# plt.ylabel('total net nums')
+# plt.show()
+fig,ax = plt.subplots()
+print(bins)
+print(nums)
+
+names=[str(i) for i in bins]
+#rects=ax.bar(list(names), list(nums))
+
+ind = np.arange(len(bins))  # the x locations for the groups
+width = 0.35  # the width of the bars
+
+rects = ax.bar(ind - width/2, nums, width)
+ax.set_ylabel('nums')
+ax.set_xlabel('length range in um')
+ax.set_title('chip wire length distribution')
+ax.set_xticks(ind)
+ax.set_xticklabels(('0-50', '50-100', '100-150', '150-200', '200-300','300-400','400-500','500-600','600-700','700+'),rotation=90)
+bottom, top = plt.ylim()
+plt.ylim(top=403216.4)
+#print(bottom,top)
+def autolabel(rects, xpos='center'):
+    """
+    Attach a text label above each bar in *rects*, displaying its height.
+
+    *xpos* indicates which side to place the text w.r.t. the center of
+    the bar. It can be one of the following {'center', 'right', 'left'}.
+    """
+
+    ha = {'center': 'center', 'right': 'left', 'left': 'right'}
+    offset = {'center': 0, 'right': 1, 'left': -1}
+
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate('{}'.format(height),
+                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(offset[xpos]*3, 3),  # use 3 points offset
+                    textcoords="offset points",  # in both directions
+                    ha=ha[xpos], va='bottom')
+
+
+autolabel(rects)
