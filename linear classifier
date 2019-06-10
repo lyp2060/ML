@@ -1,0 +1,21 @@
+find the one with the max-margin for classification
+linear support vector machine
+Regularization of SVM:
+  Larger values of C: less regularization
+  -fit the training data as well as possible
+  -Each individual data point is important to classify correctly
+ 
+Smaller values of C: more regularization
+  - More tolerant of errors on invididual data points
+  
+Pros:
+  Simple, Fast, scales well, 
+cons:
+  For lower-dimensional data, may have superior generalization performance
+  for classification, data may not be linearly seperable
+  
+can use for multi-class classification with linear models too
+  predict each one with binary models
+  choose the one with highest scores
+  
+  
