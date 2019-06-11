@@ -1,0 +1,22 @@
+a tree node with a lot of if-else
+
+add feature weight
+feature importance 
+
+can control the max tree depth 
+
+pros:
+  Easily visualized and interpreted
+  NO feature normalization or scaling typycally needed
+  work well with datasets using a mixture of feature types
+  
+Cons:
+  Even after tuning, decision trees can often still ovefit
+  usually need an ensemble of trees for better generalization performance
+  
+max_depth: commonly used in practice
+
+min_samples_leaf:
+  threshold for the minimum of data instances a leaf can have to avoid further splitting
+max_leaf_nodes
+  limits total number of leaves in the tree
