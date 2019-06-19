@@ -1,0 +1,2 @@
+Neural networks are a good choice when the features are of simliar types. for example, all derived from the pixel of an image
+and less of a good choice, when the features are of very diffrent types
