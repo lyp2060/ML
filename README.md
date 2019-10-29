@@ -83,3 +83,9 @@ Accuracy: 0.91 (+/- 0.04) [naive Bayes]
 Accuracy: 0.95 (+/- 0.04) [Ensemble]
 ```
 
+## recommended system
+```
+need to use recall and precision to test if the recommendation is good or not
+based on content similarity, all user get similar date
+based on user similarity, personzie the date
+```
